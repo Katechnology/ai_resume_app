@@ -1,4 +1,3 @@
-````md
 # AI Resume Matcher 🚀
 
 An AI-powered resume scoring app built with **FastAPI** and **XGBoost**. Upload a PDF resume and get a match score based on your company's job description.
@@ -13,7 +12,6 @@ An AI-powered resume scoring app built with **FastAPI** and **XGBoost**. Upload 
 git clone https://github.com/Katechnology/ai_resume_app.git
 cd ai_resume_app
 ```
-````
 
 ### 2. Install dependencies
 
