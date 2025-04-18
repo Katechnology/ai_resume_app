@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Match Score</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: url("/static/background.png") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      h2 {
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      form {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Hide native file input */
+      input[type="file"] {
+        display: none;
+      }
+
+      .custom-file-upload {
+        padding: 0.5rem 1.5rem;
+        background-color: #28a745;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: inline-block;
+        transition: background-color 0.2s ease;
+      }
+
+      .custom-file-upload:hover {
+        background-color: #218838;
+      }
+
+      .file-name {
+        font-size: 0.9rem;
+        color: #444;
+      }
+
+      button[type="submit"] {
+        padding: 0.5rem 1.5rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      #progress-bar {
+        display: none;
+        margin-top: 1rem;
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      #progress-bar div {
+        height: 10px;
+        width: 0%;
+        background-color: #007bff;
+        animation: loadProgress 2s ease-out forwards;
+      }
+
+      @keyframes loadProgress {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      .result-card {
+        margin-top: 2rem;
+        background-color: #ffffff;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .result-card h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      .result-card p {
+        font-size: 1.2rem;
+        color: #222;
+      }
+      .result-card a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .result-card a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>AI Scan</h2>
+
+    <form
+      id="resume-form"
+      action="/upload"
+      method="post"
+      enctype="multipart/form-data"
+      onsubmit="showProgress()"
+    >
+      <label for="file-upload" class="custom-file-upload">
+        📄 Choose Resume (PDF)
+      </label>
+      <input
+        id="file-upload"
+        type="file"
+        name="file"
+        accept=".pdf"
+        required
+        onchange="updateFileName()"
+      />
+      <div class="file-name" id="file-name">No file chosen</div>
+
+      <button type="submit">Submit</button>
+
+      <div id="progress-bar"><div></div></div>
+    </form>
+
+    {% if score is defined %}
+    <div class="result-card">
+      <h3>Candidate: {{ name }}</h3>
+      <p><strong>Match Score:</strong> {{ score }} / 10</p>
+      <p><strong>Phone:</strong> {{ phone }}</p>
+
+      {% if links %}
+      <p>
+        <strong>Links:</strong><br />
+        {% for link in links.split(';') %}
+        <a href="{{ link.strip() }}" target="_blank">{{ link.strip() }}</a
+        ><br />
+        {% endfor %}
+      </p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <script>
+      function showProgress() {
+        document.getElementById("progress-bar").style.display = "block";
+      }
+
+      function updateFileName() {
+        const fileInput = document.getElementById("file-upload");
+        const fileName = fileInput.files.length
+          ? fileInput.files[0].name
+          : "No file chosen";
+        document.getElementById("file-name").textContent = fileName;
+      }
+    </script>
+  </body>
+</html>
