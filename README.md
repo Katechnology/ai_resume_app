@@ -1,33 +1,3 @@
-```md
-# AI Resume Matcher 🚀
-
-...
-```
-
-```
-
-```
-
-This makes GitHub treat the entire README as one big code block — which is why it doesn’t render the headings, lists, or links properly.
-
----
-
-### ✅ Final Fix: **Remove the outer `md ... ` wrapper**
-
-Just remove the very first line and last line:
-
-````diff
-- ```md
-... (all your good content here)
-- ```
-````
-
-So your final `README.md` should look like this:
-
----
-
-### ✅ Final, Copy-Ready Version (no outer code block)
-
 ````md
 # AI Resume Matcher 🚀
 
@@ -95,12 +65,3 @@ Feel free to fork and build upon it!
 ## ✨ Credits
 
 Made with ❤️ by [@Katechnology](https://github.com/Katechnology)
-
-```
-
----
-
-
-
-
-```
